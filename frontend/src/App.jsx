@@ -1,0 +1,89 @@
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { useState } from "react";
+
+import Navbar from "./components/Navbar";
+import Sidebar from "./components/Sidebar";
+import ProductList from "./components/ProductList";
+import Cart from "./components/Cart";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import ProtectedRoute from "./components/ProtectedRoute";
+import Orders from "./components/Orders";
+import ProductDetail from "./components/ProductDetail";
+import Checkout from "./components/Checkout";
+import OrderSuccess from "./components/OrderSuccess";
+
+
+function Layout() {
+  const location = useLocation();
+
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [category, setCategory] = useState("All");
+  const [search, setSearch] = useState("");
+  const [sort, setSort] = useState(""); // 🔥 ADDED
+  
+
+
+  const hideNavbar =
+    location.pathname === "/login" || location.pathname === "/signup";
+
+  return (
+    <>
+      {/* ✅ NAVBAR */}
+      {!hideNavbar && (
+      <Navbar 
+  setCategory={setCategory} 
+  setSearch={setSearch} 
+  setMenuOpen={setMenuOpen} 
+/>
+      )}
+
+      {/* ✅ SIDEBAR */}
+      {!hideNavbar && (
+        <Sidebar
+          menuOpen={menuOpen}
+          setMenuOpen={setMenuOpen}
+          setCategory={setCategory}
+          setSort={setSort} // 🔥 ADDED
+        />
+      )}
+
+      {/* ✅ ROUTES */}
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <ProductList category={category} search={search} sort={sort} />
+          }
+        />
+
+        <Route
+          path="/cart"
+          element={
+            <ProtectedRoute>
+              <Cart />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Register />} />
+        <Route path="/orders" element={<Orders />} />
+        <Route path="/product/:id" element={<ProductDetail />} />
+        <Route path="/checkout" element={<Checkout />} /> 
+        <Route path="/order-success/:id" element={<OrderSuccess />} />
+      </Routes>
+    </>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <Layout />
+    </Router>
+  );
+}
+
+
+export default App;
