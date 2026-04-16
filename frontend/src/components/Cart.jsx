@@ -14,7 +14,7 @@ function Cart() {
     return;
   }
 
-  const res = await fetch("https://amazon-clone-backend-a7zs.onrender.com/api/cart", {
+  const res = await fetch("https://amazon-clone-backend-a7zs.onrender.com/api/cart/add", {
     headers: { Authorization: `Bearer ${token}` },
   });
 
