@@ -18,6 +18,10 @@ function ProductList({ category, search, sort }) {
   }, []);
 
   const addToCart = async (id) => {
+    if (!token) {
+  navigate("/login");
+  return;
+}
     const token = localStorage.getItem("token");
 
    const res = await fetch("https://amazon-clone-backend-a7zs.onrender.com/api/cart/add", {
@@ -38,6 +42,7 @@ function ProductList({ category, search, sort }) {
     }
 
     fetchCartCount();
+    navigate("/cart"); // 🔥 TEMP TEST
   };
 
   // 🔥 FILTER

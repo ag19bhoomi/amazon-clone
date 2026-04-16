@@ -27,8 +27,12 @@ function Cart() {
   // FETCH CART
  
   useEffect(() => {
+  const interval = setInterval(() => {
     fetchCart();
-  }, []);
+  }, 1000);
+
+  return () => clearInterval(interval);
+}, []);
 
   // UPDATE
  const updateQuantity = async (productId, qty) => {
