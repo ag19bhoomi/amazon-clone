@@ -12,7 +12,11 @@ function Cart() {
  useTitle("Cart - Amazon.in");
   // FETCH CART
   const fetchCart = async () => {
-    const res = await fetch("https://amazon-clone-backend-a7zs.onrender.com/api/cart/add", {
+    if (!token) {
+  navigate("/login");
+  return;
+}
+    const res = await fetch("https://amazon-clone-backend-a7zs.onrender.com/api/cart", {
       headers: { Authorization: `Bearer ${token}` },
     });
 

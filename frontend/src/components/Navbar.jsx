@@ -4,7 +4,7 @@ import { CartContext } from "../context/temp";
 
 function Navbar({ setMenuOpen, setSearch, setCategory }){
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = JSON.parse(localStorage.getItem("user") || "null");
   const { cartCount } = useContext(CartContext);
 
   const [showDropdown, setShowDropdown] = useState(false);
@@ -78,7 +78,7 @@ function Navbar({ setMenuOpen, setSearch, setCategory }){
         >
           <div style={{ fontSize: "12px" }}>Hello</div>
           <div style={{ fontWeight: "bold" }}>
-            {user ? user.name : "Guest"}
+            {user?.name || "Guest"}
           </div>
 
           {showDropdown && (

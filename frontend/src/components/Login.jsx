@@ -10,11 +10,11 @@ function Login() {
 
   // ✅ MOVE useEffect INSIDE COMPONENT
   useEffect(() => {
-    const user = localStorage.getItem("user");
-    if (user) {
-      navigate("/");
-    }
-  }, []);
+  const user = localStorage.getItem("user");
+  if (user) {
+    navigate("/");
+  }
+}, [navigate]);
 const handleLogin = async (e) => {
   e.preventDefault();
 
