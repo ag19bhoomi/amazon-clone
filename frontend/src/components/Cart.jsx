@@ -14,9 +14,13 @@ function Cart() {
     return;
   }
 
-  const res = await fetch("https://amazon-clone-backend-a7zs.onrender.com/api/cart", {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+ const token = localStorage.getItem("token");
+
+fetch("https://amazon-clone-backend-a7zs.onrender.com/api/cart", {
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },
+});
 
   const data = await res.json();
   setCartItems(Array.isArray(data) ? data : []);
