@@ -6,24 +6,26 @@ import useTitle from "../hooks/useTitle";
 function Cart() {
   const [cartItems, setCartItems] = useState([]);
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
+ const fetchCart = async () => {
+  const token = localStorage.getItem("token"); // ✅ MOVE HERE
+
+  if (!token) {
+    navigate("/login");
+    return;
+  }
+
+  const res = await fetch("https://amazon-clone-backend-a7zs.onrender.com/api/cart", {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  const data = await res.json();
+  setCartItems(Array.isArray(data) ? data : []);
+};
 
   const { fetchCartCount } = useContext(CartContext);
  useTitle("Cart - Amazon.in");
   // FETCH CART
-  const fetchCart = async () => {
-    if (!token) {
-  navigate("/login");
-  return;
-}
-    const res = await fetch("https://amazon-clone-backend-a7zs.onrender.com/api/cart", {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-
-    const data = await res.json();
-    setCartItems(Array.isArray(data) ? data : []);
-  };
-
+ 
   useEffect(() => {
     fetchCart();
   }, []);
