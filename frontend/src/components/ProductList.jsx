@@ -17,12 +17,13 @@ function ProductList({ category, search, sort }) {
       .then(data => setProducts(data));
   }, []);
 
-  const addToCart = async (id) => {
-    if (!token) {
-  navigate("/login");
-  return;
-}
-    const token = localStorage.getItem("token");
+const addToCart = async (id) => {
+  const token = localStorage.getItem("token"); // ✅ FIRST
+
+  if (!token) {
+    navigate("/login");
+    return;
+  }
 
    const res = await fetch("https://amazon-clone-backend-a7zs.onrender.com/api/cart/add", {
       method: "POST",
