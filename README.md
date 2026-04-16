@@ -6,8 +6,8 @@ A full-stack e-commerce web application inspired by Amazon, built to replicate c
 
 ## Live Demo
 
-🔗 **Frontend:** [Add your deployed frontend link here]  
-🔗 **Backend API:** [Add your backend link here]
+🔗 **Frontend:** https://amazon-clone-kappa-virid.vercel.app/  
+🔗 **Backend API:** https://amazon-clone-backend-a7zs.onrender.com
 
 ---
 
