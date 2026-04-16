@@ -27,54 +27,19 @@ function Layout() {
   const hideNavbar =
     location.pathname === "/login" || location.pathname === "/signup";
 
-  return (
-    <>
-      {/* ✅ NAVBAR */}
-      {!hideNavbar && (
-      <Navbar 
-  setCategory={setCategory} 
-  setSearch={setSearch} 
-  setMenuOpen={setMenuOpen} 
-/>
-      )}
+return (
+  <>
+    {/* ❌ COMMENT THESE */}
+    {/* {!hideNavbar && <Navbar ... />} */}
+    {/* {!hideNavbar && <Sidebar ... />} */}
 
-      {/* ✅ SIDEBAR */}
-      {!hideNavbar && (
-        <Sidebar
-          menuOpen={menuOpen}
-          setMenuOpen={setMenuOpen}
-          setCategory={setCategory}
-          setSort={setSort} // 🔥 ADDED
-        />
-      )}
-
-      {/* ✅ ROUTES */}
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <ProductList category={category} search={search} sort={sort} />
-          }
-        />
-
-        <Route
-          path="/cart"
-          element={
-            <ProtectedRoute>
-              <Cart />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Register />} />
-        <Route path="/orders" element={<Orders />} />
-        <Route path="/product/:id" element={<ProductDetail />} />
-        <Route path="/checkout" element={<Checkout />} /> 
-        <Route path="/order-success/:id" element={<OrderSuccess />} />
-      </Routes>
-    </>
-  );
+    <Routes>
+      <Route path="/" element={<ProductList />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Register />} />
+    </Routes>
+  </>
+);
 }
 
 function App() {
