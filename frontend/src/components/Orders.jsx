@@ -7,7 +7,7 @@ function Orders() {
   const token = localStorage.getItem("token");
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/orders", {
+    fetch("https://amazon-clone-backend-a7zs.onrender.com/api/orders", {
       headers: {
         Authorization: `Bearer ${token}`,
       },

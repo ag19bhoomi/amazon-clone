@@ -12,7 +12,7 @@ function ProductList({ category, search, sort }) {
   const { fetchCartCount } = useContext(CartContext);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/products/all")
+    fetch("https://amazon-clone-backend-a7zs.onrender.com/api/products/all")
       .then(res => res.json())
       .then(data => setProducts(data));
   }, []);
@@ -20,7 +20,7 @@ function ProductList({ category, search, sort }) {
   const addToCart = async (id) => {
     const token = localStorage.getItem("token");
 
-    const res = await fetch("http://localhost:5000/api/cart/add", {
+   const res = await fetch("https://amazon-clone-backend-a7zs.onrender.com/api/cart/add", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

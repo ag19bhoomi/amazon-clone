@@ -7,7 +7,7 @@ export function CartProvider({ children }) {
 
   const fetchCartCount = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/cart", {
+      const res = await fetch("https://amazon-clone-backend-a7zs.onrender.com/api/cart", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

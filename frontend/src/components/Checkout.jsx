@@ -11,7 +11,7 @@ function Checkout() {
   const token = localStorage.getItem("token");
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/cart", {
+    fetch("https://amazon-clone-backend-a7zs.onrender.com/api/cart", {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())
@@ -32,7 +32,7 @@ function Checkout() {
     const fullAddress = `${name}, ${phone}, ${address}`;
 
     const res = await fetch(
-      "http://localhost:5000/api/cart/place-order",
+      "https://amazon-clone-backend-a7zs.onrender.com/api/cart/place-order",
       {
         method: "POST",
         headers: {

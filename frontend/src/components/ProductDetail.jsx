@@ -17,7 +17,7 @@ useEffect(() => {
 }, [product]);
   // 🔹 FETCH PRODUCT
   useEffect(() => {
-    fetch(`http://localhost:5000/api/products/${id}`)
+    fetch(`https://amazon-clone-backend-a7zs.onrender.com/api/products/${id}`)
       .then(res => res.json())
       .then(data => {
         setProduct(data);
@@ -29,7 +29,7 @@ useEffect(() => {
   const addToCart = async () => {
     const token = localStorage.getItem("token");
 
-    const res = await fetch("http://localhost:5000/api/cart/add", {
+    const res = await fetch("https://amazon-clone-backend-a7zs.onrender.com/api/cart/add", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

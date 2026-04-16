@@ -12,7 +12,7 @@ function Cart() {
  useTitle("Cart - Amazon.in");
   // FETCH CART
   const fetchCart = async () => {
-    const res = await fetch("http://localhost:5000/api/cart", {
+    const res = await fetch("https://amazon-clone-backend-a7zs.onrender.com/api/cart/add", {
       headers: { Authorization: `Bearer ${token}` },
     });
 
@@ -28,7 +28,7 @@ function Cart() {
   const updateQuantity = async (productId, qty) => {
     if (qty < 1) return;
 
-    await fetch("http://localhost:5000/api/cart/update", {
+    await fetch("https://amazon-clone-backend-a7zs.onrender.com/api/cart/update", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -46,7 +46,7 @@ function Cart() {
 
   // REMOVE
   const removeItem = async (cartId) => {
-    await fetch(`http://localhost:5000/api/cart/remove/${cartId}`, {
+    await fetch(`https://amazon-clone-backend-a7zs.onrender.com/api/cart/remove/${cartId}`, {
       method: "DELETE",
       headers: { Authorization: `Bearer ${token}` },
     });
