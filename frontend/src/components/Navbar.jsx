@@ -9,13 +9,11 @@ function Navbar({ setMenuOpen, setSearch, setCategory }){
 
   const [showDropdown, setShowDropdown] = useState(false);
 
-  const handleLogout = () => {
+const handleLogout = () => {
   localStorage.removeItem("token");
   localStorage.removeItem("user");
 
   navigate("/login");
-
-  window.location.reload(); // 🔥 ensures UI resets
 };
 
   return (
