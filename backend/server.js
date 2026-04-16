@@ -26,11 +26,19 @@ app.use("/api/auth", authRoutes);
 app.get('/', (req, res) => {
     res.send('API is running...');
 });
-
+const pool = require('./src/config/db');
+app.get('/debug-db', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM products');
+    res.json(result.rows);
+  } catch (err) {
+    console.error("DEBUG ERROR:", err);
+    res.status(500).send("DB error");
+  }
+});
 // Port
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
-
