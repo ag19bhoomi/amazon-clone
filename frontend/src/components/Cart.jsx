@@ -31,35 +31,39 @@ function Cart() {
   }, []);
 
   // UPDATE
-  const updateQuantity = async (productId, qty) => {
-    if (qty < 1) return;
+ const updateQuantity = async (productId, qty) => {
+  if (qty < 1) return;
 
-    await fetch("https://amazon-clone-backend-a7zs.onrender.com/api/cart/update", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        product_id: productId,
-        quantity: qty,
-      }),
-    });
+  const token = localStorage.getItem("token"); // ✅ ADD THIS
 
-    fetchCart();
-    fetchCartCount();
-  };
+  await fetch("https://amazon-clone-backend-a7zs.onrender.com/api/cart/update", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      product_id: productId,
+      quantity: qty,
+    }),
+  });
+
+  fetchCart();
+  fetchCartCount();
+};
 
   // REMOVE
   const removeItem = async (cartId) => {
-    await fetch(`https://amazon-clone-backend-a7zs.onrender.com/api/cart/remove/${cartId}`, {
-      method: "DELETE",
-      headers: { Authorization: `Bearer ${token}` },
-    });
+  const token = localStorage.getItem("token"); // ✅ ADD THIS
 
-    fetchCart();
-    fetchCartCount();
-  };
+  await fetch(`https://amazon-clone-backend-a7zs.onrender.com/api/cart/remove/${cartId}`, {
+    method: "DELETE",
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  fetchCart();
+  fetchCartCount();
+};
 
   // TOTAL
   const subtotal = cartItems.reduce(
