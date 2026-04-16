@@ -6,72 +6,82 @@ import useTitle from "../hooks/useTitle";
 function Cart() {
   const [cartItems, setCartItems] = useState([]);
   const navigate = useNavigate();
- const fetchCart = async () => {
-  const token = localStorage.getItem("token"); // ✅ MOVE HERE
-
-  if (!token) {
-    navigate("/login");
-    return;
-  }
-
- const token = localStorage.getItem("token");
-
-fetch("https://amazon-clone-backend-a7zs.onrender.com/api/cart", {
-  headers: {
-    Authorization: `Bearer ${token}`,
-  },
-});
-
-  const data = await res.json();
-  setCartItems(Array.isArray(data) ? data : []);
-};
-
   const { fetchCartCount } = useContext(CartContext);
- useTitle("Cart - Amazon.in");
-  // FETCH CART
- 
-  useEffect(() => {
-  const interval = setInterval(() => {
-    fetchCart();
-  }, 1000);
 
-  return () => clearInterval(interval);
-}, []);
+  useTitle("Cart - Amazon.in");
+
+  // ✅ FETCH CART (FIXED)
+  const fetchCart = async () => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      navigate("/login");
+      return;
+    }
+
+    const res = await fetch(
+      "https://amazon-clone-backend-a7zs.onrender.com/api/cart",
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+
+    // ✅ HANDLE 401
+    if (res.status === 401) {
+      localStorage.clear();
+      navigate("/login");
+      return;
+    }
+
+    const data = await res.json();
+    setCartItems(Array.isArray(data) ? data : []);
+  };
+
+  // ✅ FIXED: REMOVE setInterval (ONLY CALL ONCE)
+  useEffect(() => {
+    fetchCart();
+  }, []);
 
   // UPDATE
- const updateQuantity = async (productId, qty) => {
-  if (qty < 1) return;
+  const updateQuantity = async (productId, qty) => {
+    if (qty < 1) return;
 
-  const token = localStorage.getItem("token"); // ✅ ADD THIS
+    const token = localStorage.getItem("token");
 
-  await fetch("https://amazon-clone-backend-a7zs.onrender.com/api/cart/update", {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify({
-      product_id: productId,
-      quantity: qty,
-    }),
-  });
+    await fetch(
+      "https://amazon-clone-backend-a7zs.onrender.com/api/cart/update",
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          product_id: productId,
+          quantity: qty,
+        }),
+      }
+    );
 
-  fetchCart();
-  fetchCartCount();
-};
+    fetchCart();
+    fetchCartCount();
+  };
 
   // REMOVE
   const removeItem = async (cartId) => {
-  const token = localStorage.getItem("token"); // ✅ ADD THIS
+    const token = localStorage.getItem("token");
 
-  await fetch(`https://amazon-clone-backend-a7zs.onrender.com/api/cart/remove/${cartId}`, {
-    method: "DELETE",
-    headers: { Authorization: `Bearer ${token}` },
-  });
+    await fetch(
+      `https://amazon-clone-backend-a7zs.onrender.com/api/cart/remove/${cartId}`,
+      {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
 
-  fetchCart();
-  fetchCartCount();
-};
+    fetchCart();
+    fetchCartCount();
+  };
 
   // TOTAL
   const subtotal = cartItems.reduce(
@@ -80,14 +90,14 @@ fetch("https://amazon-clone-backend-a7zs.onrender.com/api/cart", {
   );
 
   // CHECKOUT
- const handleCheckout = () => {
-  if (cartItems.length === 0) {
-    alert("Your cart is empty ❌");
-    return;
-  }
+  const handleCheckout = () => {
+    if (cartItems.length === 0) {
+      alert("Your cart is empty ❌");
+      return;
+    }
 
-  navigate("/checkout");
-};
+    navigate("/checkout");
+  };
 
   return (
     <div style={wrapper}>
@@ -95,7 +105,6 @@ fetch("https://amazon-clone-backend-a7zs.onrender.com/api/cart", {
         <h2>Your Cart</h2>
 
         <div style={{ display: "flex", gap: "20px" }}>
-          
           {/* LEFT */}
           <div style={{ flex: 2 }}>
             {cartItems.length === 0 ? (
@@ -103,7 +112,6 @@ fetch("https://amazon-clone-backend-a7zs.onrender.com/api/cart", {
             ) : (
               cartItems.map((item) => (
                 <div key={item.id} style={card}>
-                  
                   <img
                     src={item.image_url}
                     alt={item.name}
@@ -117,7 +125,6 @@ fetch("https://amazon-clone-backend-a7zs.onrender.com/api/cart", {
                     <h3>{item.name}</h3>
                     <p style={{ color: "#B12704" }}>₹{item.price}</p>
 
-                    {/* AMAZON STYLE */}
                     <div style={qtyWrapper}>
                       <div style={qtyBox}>
                         <button
@@ -156,7 +163,6 @@ fetch("https://amazon-clone-backend-a7zs.onrender.com/api/cart", {
                         🗑 Delete
                       </span>
                     </div>
-
                   </div>
                 </div>
               ))
@@ -180,7 +186,6 @@ fetch("https://amazon-clone-backend-a7zs.onrender.com/api/cart", {
               Proceed to Checkout
             </button>
           </div>
-
         </div>
       </div>
     </div>
