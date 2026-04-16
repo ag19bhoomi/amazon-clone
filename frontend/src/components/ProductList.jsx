@@ -43,7 +43,6 @@ const addToCart = async (id) => {
     }
 
     fetchCartCount();
-    navigate("/cart"); // 🔥 TEMP TEST
   };
 
   // 🔥 FILTER
