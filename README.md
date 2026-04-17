@@ -135,6 +135,9 @@ This project is written with clarity in mind and can be easily explained:
 ### Database:
 - PostgreSQL
 
+
+###  Note:
+- Refresh the website 2-3 time for it to appear properly
 ---
 
 ##  Setup Instructions
@@ -144,3 +147,5 @@ This project is written with clarity in mind and can be easily explained:
 ```bash
 git clone https://github.com/ag19bhoomi/amazon-clone.git
 cd amazon-clone
+
+
