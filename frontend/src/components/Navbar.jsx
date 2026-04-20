@@ -69,36 +69,46 @@ const handleLogout = () => {
       {/* RIGHT */}
       <div style={right}>
 
-        {/* USER */}
-        <div
-          onClick={() => setShowDropdown(!showDropdown)}
-          style={{ cursor: "pointer", position: "relative" }}
-        >
-          <div style={{ fontSize: "12px" }}>Hello</div>
-          <div style={{ fontWeight: "bold" }}>
-            {user?.name || "Guest"}
-          </div>
+  {/* USER */}
+  <div
+    onClick={() => setShowDropdown(!showDropdown)}
+    style={{ cursor: "pointer", position: "relative" }}
+  >
+    <div style={{ fontSize: "12px" }}>Hello</div>
+    <div style={{ fontWeight: "bold" }}>
+      {user ? user.name : "Guest"}
+    </div>
 
-          {showDropdown && (
-            <div style={dropdown}>
-              <div onClick={handleLogout} style={logoutBtn}>
-                 Logout
-              </div>
-            </div>
-          )}
+    {showDropdown && (
+      <div style={dropdown}>
+        <div onClick={handleLogout} style={logoutBtn}>
+          Logout
         </div>
-
-        {/* ORDERS */}
-        <div onClick={() => navigate("/orders")} style={{ cursor: "pointer" }}>
-          Orders
-        </div>
-
-        {/* CART */}
-        <div onClick={() => navigate("/cart")} style={{ cursor: "pointer" }}>
-          🛒 {cartCount}
-        </div>
-
       </div>
+    )}
+  </div>
+
+  {/* ✅ SIGNUP BUTTON */}
+  {!user && (
+    <div
+      onClick={() => navigate("/signup")}
+      style={{ cursor: "pointer", fontWeight: "bold" }}
+    >
+      Signup
+    </div>
+  )}
+
+  {/* ORDERS */}
+  <div onClick={() => navigate("/orders")} style={{ cursor: "pointer" }}>
+    Orders
+  </div>
+
+  {/* CART */}
+  <div onClick={() => navigate("/cart")} style={{ cursor: "pointer" }}>
+    🛒 {cartCount}
+  </div>
+
+</div>~
     </div>
   );
 }
