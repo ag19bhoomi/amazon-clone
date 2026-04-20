@@ -70,24 +70,48 @@ const handleLogout = () => {
       <div style={right}>
 
   {/* USER */}
-  <div
-    onClick={() => setShowDropdown(!showDropdown)}
-    style={{ cursor: "pointer", position: "relative" }}
-  >
-    <div style={{ fontSize: "12px" }}>Hello</div>
-    <div style={{ fontWeight: "bold" }}>
-      {user ? user.name : "Guest"}
-    </div>
+<div
+  onClick={() => setShowDropdown(!showDropdown)}
+  style={{ cursor: "pointer", position: "relative" }}
+>
+  <div style={{ fontSize: "12px" }}>
+    Hello, {user ? user.name : "Guest"}
+  </div>
 
-    {showDropdown && (
-      <div style={dropdown}>
+  <div style={{ fontWeight: "bold" }}>
+    {user ? "Account & Lists" : "Sign in"}
+  </div>
+
+  {/* ✅ DROPDOWN */}
+  {showDropdown && (
+    <div style={dropdown}>
+      {!user ? (
+        <>
+          <button
+            style={signInBtn}
+            onClick={() => navigate("/login")}
+          >
+            Sign In
+          </button>
+
+          <p style={{ fontSize: "13px", marginTop: "10px" }}>
+            New customer?{" "}
+            <span
+              onClick={() => navigate("/signup")}
+              style={link}
+            >
+              Create your account
+            </span>
+          </p>
+        </>
+      ) : (
         <div onClick={handleLogout} style={logoutBtn}>
           Logout
         </div>
-      </div>
-    )}
-  </div>
-
+      )}
+    </div>
+  )}
+</div>
   {/* ✅ SIGNUP BUTTON */}
   {!user && (
     <div
@@ -220,5 +244,19 @@ const categoryDropdown = {
 const logoutBtn = {
   cursor: "pointer",
   padding: "5px 10px",
+};
+const signInBtn = {
+  width: "100%",
+  padding: "10px",
+  background: "#ffd814",
+  border: "none",
+  borderRadius: "6px",
+  cursor: "pointer",
+  fontWeight: "bold",
+};
+
+const link = {
+  color: "#007185",
+  cursor: "pointer",
 };
 export default Navbar;
